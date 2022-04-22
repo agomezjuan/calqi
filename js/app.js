@@ -101,6 +101,7 @@ window.addEventListener("load", function () {
           con = true;
           break;
 
+        // Raiz cuadrada
         case "raiz":
           if (operacion == "") {
             resultado = raiz(display.innerText);
@@ -122,7 +123,9 @@ window.addEventListener("load", function () {
             display.innerText == "" ? "0." : (display.innerText += ".");
           break;
 
+        // Calcular el total
         case "igual":
+          // Validacion de operacion previas
           if (operacion == "suma") {
             num = display.innerText;
             resultado = sumar(resultado, num);
@@ -213,8 +216,9 @@ window.addEventListener("load", function () {
 
   // Raíz cuadrada
   const raiz = (x) => {
+    operacion = "";
     let rc = Math.sqrt(x);
-    console.log("raiz cuadrada de " + x + " = " + rc);
+    console.log("Raiz cuadrada de " + x + " = " + rc);
     return normalizar(rc);
   };
 
