@@ -12,7 +12,7 @@ window.addEventListener("load", function () {
 
   teclas.forEach((tecla) => {
     tecla.addEventListener("click", (e) => {
-      console.log(e.target.id);
+      //console.log(e.target.id);
 
       if (display.innerText == NaN) display.innerText = 0;
 
@@ -105,15 +105,13 @@ window.addEventListener("load", function () {
         case "raiz":
           if (operacion == "") {
             resultado = raiz(display.innerText);
+            display.innerText = resultado;
           } else {
             num = raiz(display.innerText);
 
             // calcular la operacion previa
             resultado = operacionPrevia(operacion, resultado, num);
             display.innerText = resultado;
-
-            // preparar para la siguiente operacion
-            operacion = "division";
           }
           break;
 
@@ -216,7 +214,6 @@ window.addEventListener("load", function () {
 
   // Raíz cuadrada
   const raiz = (x) => {
-    operacion = "";
     let rc = Math.sqrt(x);
     console.log("Raiz cuadrada de " + x + " = " + rc);
     return normalizar(rc);
