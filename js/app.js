@@ -13,9 +13,11 @@ class Calculadora {
 
   init = () => {
     this.teclas.forEach((tecla) => {
-      tecla.addEventListener("click", (e) => {
-        //console.log(e.target.id);
+      // efecto achicar y aumentar teclas
+      this.efectoTeclas(tecla);
 
+      // eventos de operaciones matematicas
+      tecla.addEventListener("click", (e) => {
         if (this.display.innerText == NaN) this.display.innerText = 0;
 
         // reset display
@@ -122,10 +124,10 @@ class Calculadora {
           // Raiz cuadrada
           case "raiz":
             if (this.operacion == "") {
-              this.resultado = raiz(this.display.innerText);
+              this.resultado = this.raiz(this.display.innerText);
               this.display.innerText = this.resultado;
             } else {
-              this.num = raiz(this.display.innerText);
+              this.num = this.raiz(this.display.innerText);
 
               // calcular la operacion previa
               this.resultado = this.operacionPrevia(
@@ -139,10 +141,13 @@ class Calculadora {
 
           // representacion del punto decimal
           case "punto":
-            this.display.innerText =
-              this.display.innerText == ""
-                ? "0."
-                : (this.display.innerText += ".");
+            if (!this.display.innerText.split("").includes(".")) {
+              this.display.innerText =
+                this.display.innerText == ""
+                  ? "0."
+                  : (this.display.innerText += ".");
+            }
+
             break;
 
           // Calcular el total
@@ -262,6 +267,35 @@ class Calculadora {
     this.operacion = "";
     this.resultado = 0;
     this.num = 0;
+  };
+
+  // efectos aumentar y reducir tamaño de teclas
+  efectoTeclas = (tecla) => {
+    tecla.addEventListener("mousedown", (e) => {
+      if (["0", "1", "2", "3", "igual", "punto"].includes(e.target.id)) {
+        e.target.style.width = "28%";
+        e.target.style.height = "62px";
+      } else if (e.target.id == "mas") {
+        e.target.style.width = "88%";
+        e.target.style.height = "98%";
+      } else {
+        e.target.style.width = "21%";
+        e.target.style.height = "62px";
+      }
+    });
+
+    tecla.addEventListener("mouseup", (e) => {
+      if (["0", "1", "2", "3", "igual", "punto"].includes(e.target.id)) {
+        e.target.style.width = "29%";
+        e.target.style.height = "62.91px";
+      } else if (e.target.id == "mas") {
+        e.target.style.width = "90%";
+        e.target.style.height = "100%";
+      } else {
+        e.target.style.width = "22%";
+        e.target.style.height = "62.91px";
+      }
+    });
   };
 }
 
